@@ -7,6 +7,11 @@
     <title>home</title>
 </head>
 <body>
-    <h1><H6>Hello Yousef</H6></h1>
+    <h1>Hello Yousef</h1>
+    {% for article in articles %}
+    <p>{{article.title}}</p>
+    <img src="{{article.thumbnail.url}}" alt=" {{article.title}} " height="500px" srcset="">
+    <p> {{article.description}} </p>
+    {% endfor %}
 </body>
 </html>
