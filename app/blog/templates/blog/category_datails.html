@@ -10,12 +10,12 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
             <!-- Post preview-->
-            {% for article in articles %}
+            {% for article in category.articles.all %}
                 <div class="post-preview">
                     <a href=" {% url 'blog:details' article.slug %} ">
-                        <h4 class="post-title"> {{article.title}} </h2>
+                        <h2 class="post-title"> {{article.title}} </h2>
                         <p>تاریخ {{article.jpublished}}</p>
-                        <p class="post-subtitle"> {{article.description | truncatewords:20}} </p>
+                        <h3 class="post-subtitle"> {{article.description | truncatewords:20}} </h3>
                     </a>
                     <p class="post-meta">منتشر شده توسط : <a href="#!">یوسف ارسطو</a></p>
             </div>
