@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Articles
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ("title","slug","published","status")
+    list_display = ("title","slug","jpublished","status")
     list_filter = ("published","status")
     search_fields = ("title","description")
     #  علامت منفی برای نزولی میباشد 

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .models import Articles
 
 # Create your views here.
@@ -13,14 +13,14 @@ def home(request):
     #         {"name":"sarah","family":"moradi","age":"19"},
     #     ]
     # }
-
+    article = Articles.objects.filter(status="p").order_by("-published")[:10] 
     context = {
-        "articles":Articles.objects.filter(status="p").order_by("-published")[:10]
+        "articles":article
     }
     return render(request, template_name=template,context = context)
 
 def details(req,slug):
     template_name = "blog/post.html"
-    context = {"article":Articles.objects.get(slug=slug)}
-    print(req)
+    article = get_object_or_404(Articles,slug=slug,status="p")  
+    context = {"article":article}
     return render(req, template_name,context)
