@@ -14,14 +14,14 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category,CategoryAdmin)
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ("title","slug","jpublished","status","category_to_str")
+    list_display = ("title","slug","jpublished","status","category_to_str",)
     list_filter = ("published","status")
     search_fields = ("title","description")
     #  علامت منفی برای نزولی میباشد 
     status = ["-published","status"]
 
     def category_to_str(seslf,obj):
-        return ",".join([category.title for category in obj.category.all()])
+        return ",".join([category.title for category in obj.category.filter(status=True)])
     category_to_str.short_description = "دسته بندی"
 
 

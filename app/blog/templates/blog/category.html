@@ -10,14 +10,10 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
             <!-- Post preview-->
-            <a href="{% url 'blog:category_details' category.slug %}"><h4 class="alert alert-primary text-center" > دسته بندی: {{category.title}} </h4></a>
-            {% for article in category.articles.published_manager %}
+            {% for cat in categories %}
                 <div class="post-preview">
-                    <a href=" {% url 'blog:details' article.slug %} ">
-                        <h2 class="post-title"> {{article.title}} </h2>
-                        <time>تاریخ {{article.jpublished}}</p>
-                        <h3 class="post-subtitle"> {{article.description | truncatewords:20}} </h3>
-                    </a>
+                    <a href=" {% url 'blog:category_details' cat.slug %} ">
+                        <h4 class="post-title"> {{cat.title}} </h2>
                     <p class="post-meta">منتشر شده توسط : <a href="#!">یوسف ارسطو</a></p>
             </div>
             {% endfor %}

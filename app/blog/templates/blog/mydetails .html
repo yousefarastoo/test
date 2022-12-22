@@ -6,12 +6,10 @@
         <!-- Post Content-->
         <article class="mb-4">
             <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                       <p> {{article.description| linebreaks }} </p>
-                        <p>
-                            منتشر شده‌:‌
-                            <a href=""> {{article.jpublished}} </a>
+                <div class="row gx-4 gx-lg-5 justify-content-center text-justify">
+                    <div class="col-md-10 col-lg-8 col-xl-7 " style="text-align: justify;">
+                       {{article.description| linebreaks }}
+                        <p>منتشر شده‌:‌<a href=""> {{article.jpublished}} </a>
                         </p>
                     </div>
                 </div>

@@ -1,19 +1,20 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Articles,Category
+from django.core.paginator import Paginator
+from django.views.generic import ListView,DetailView
 
 # Create your views here.
 
-
+class ArticleListView(ListView):
+    queryset = Articles.objects.filter(status="p")
+    context_object_name="articles"
+    template_name = "blog/myindex.html"
+    paginate_by = 2
 # article sectiom : 
-def home(request):
+def home(request,page=1):
     template = "blog/index.html"
-
-    categories = Category.objects.filter(slug="sport",status=True)
+    # categories = Category.objects.filter(slug="sport",status=True)
     # categories = categories.articles.all()
-    print("=======================")
-    for cat in list(categories):
-        print(cat.articles.all())
-    print("=======================")
     # context = {
     #     "articles":[
     #         {"name":"yousef","family":"arastoo","age":"33"},
@@ -24,20 +25,31 @@ def home(request):
     # }
     # we can use list instead queryset for optimize : 
     # articles = list(Articles.objects.filter(status="p").order_by("-published")[:10])
-    articles = Articles.objects.filter(status="p").order_by("-published")[:10]
-    context = {"articles":articles,"categories":Category.objects.filter(status=True).order_by("position")}
+    articles = Articles.objects.filter(status="p").order_by("-published")
+    paginator = Paginator(articles, 2)
+    context = {"articles":paginator.get_page(page),"categories":Category.objects.filter(status=True).order_by("position")}
     return render(request, template_name=template,context = context)
 
 def details(reqest,slug):
-    template_name = "blog/post.html"
+    template_name = "blog/details.html"
     article = get_object_or_404(Articles,slug=slug,status="p")  
     context = {"article":article}
+    print(connection.queries)
     return render(reqest, template_name,context)
 
 # ---------------------------------------------------------------------------------------------
 
 
 # category section 
+
+def category(request):
+    template_name="blog/category.html"
+    categories= Category.objects.filter(status=True)
+    context = {
+        "categories":categories
+    }
+    return render(request,template_name=template_name,context=context)
+
 
 def category_details(reqest,slug):
     template_name = "blog/category_datails.html"
