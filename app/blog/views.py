@@ -29,10 +29,6 @@ def home(request,page=1):
     # }
     # we can use list instead queryset for optimize : 
     # articles = list(Articles.objects.filter(status="p").order_by("-published")[:10])
-    print("=====================")
-    base_yousef = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    print(os.path.join(base_yousef,"static"))
-    print("=====================")
     articles = Articles.objects.filter(status="p").order_by("-published")
     paginator = Paginator(articles, 2)
     context = {"articles":paginator.get_page(page),"categories":Category.objects.filter(status=True).order_by("position")}
