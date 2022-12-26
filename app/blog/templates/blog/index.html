@@ -17,7 +17,7 @@
                         <p>تاریخ {{article.jpublished}}</p>
                         <p class="post-subtitle"> {{article.description | truncatewords:20}} </p>
                     </a>
-                    <p class="post-meta">منتشر شده توسط : <a href="#!">یوسف ارسطو</a></p>
+                    <p class="post-meta">منتشر شده توسط : <a href=" {% url 'blog:author_list' article.author.username    %} "> {{article.author.get_full_name}} </a></p>
                     {% for cat in article.category_to_published.all  %}
                     <span>#{{cat.title}} </span>
                     {% endfor %}
@@ -26,14 +26,7 @@
             <!-- Divider-->
              <hr class="my-4" />
             <!-- Pager-->
-            <div class="  mb-4">
-                {% if articles.has_next %}
-                <a class="btn btn-primary " href="{% url 'blog:home' articles.next_page_number %}">→ Older Posts </a> 
-                {% endif %}
-                {% if  articles.has_previous%}
-                <a class="btn btn-primary  ml-3" href=" {% url 'blog:home' articles.previous_page_number %} ">Newest Posts →</a>
-                {% endif %} 
-            </div> 
+
         </div>
     </div>
 </div>

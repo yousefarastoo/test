@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% block main %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            <a href="{% url 'blog:author_list' author.username %}"><h4 class="alert alert-primary text-center" > نویسنده: {{author.get_full_name}} </h4></a>
+            {% for article in articles %}
+                <div class="post-preview">
+                    <a style="text-decoration: none;" href=" {% url 'blog:details' article.slug %} ">
+                        <h2 class="post-title"> {{article.title}} </h2>
+                        <time>تاریخ {{article.jpublished}}</p>
+                        <p class="post-subtitle"> {{article.description | truncatewords:20}} </h3>
+                    </a>
+            </div>
+            {% endfor %}
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Pager-->
+            <div class="  mb-4">
+                {% if articles.has_next %}
+                <a class="btn btn-primary " href="{% url 'blog:author_list' author.username articles.next_page_number %}">→ Older Posts </a> 
+                {% endif %}
+                {% if  articles.has_previous%}
+                <a class="btn btn-primary  ml-3" href=" {% url 'blog:author_list' author.username    articles.previous_page_number %} ">Newest Posts →</a>
+                {% endif %} 
+            </div> 
+    </div>
+</div>
+{% endblock %}

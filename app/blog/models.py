@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from .extensions.jalali import jalali_convertor
-
+from django.contrib.auth.models import User
 class ArticleManager(models.Manager):
     def published_manager(self):
         return self.filter(status="p")
@@ -29,6 +29,7 @@ class Articles(models.Model):
         (draft,"پیش نویس"),
         (publish,"منتشر شده")
     ]
+    author = models.ForeignKey(User, blank=True,null=True,verbose_name="نویسندگان", on_delete=models.SET_NULL,related_name="articles")
     category = models.ManyToManyField("Category", verbose_name="دسته بندی",related_name="articles")
     title = models.CharField(max_length=250,verbose_name="عنوان مقاله")
     slug = models.SlugField(max_length=250,verbose_name="اسلاگ")

@@ -2,6 +2,9 @@ from django.shortcuts import render,get_object_or_404
 from .models import Articles,Category
 from django.core.paginator import Paginator
 from django.views.generic import ListView,DetailView
+from django.contrib.auth.models import User
+
+
 
 # Create your views here.
 
@@ -34,7 +37,6 @@ def details(reqest,slug):
     template_name = "blog/details.html"
     article = get_object_or_404(Articles,slug=slug,status="p")  
     context = {"article":article}
-    print(connection.queries)
     return render(reqest, template_name,context)
 
 # ---------------------------------------------------------------------------------------------
@@ -58,3 +60,14 @@ def category_details(reqest,slug):
     return render(reqest, template_name,context)
 
 # ---------------------------------------------------------------------------------------------
+def author_list(request,username,page=1):
+    template_name="blog/author_list.html"
+    author = get_object_or_404(User,username=username)
+    paginator = Paginator(author.articles.published_manager(), 2)
+    articles = paginator.get_page(page)
+    context = {"author":author,"articles":articles}
+    # print("============================")
+    # for article in articles:
+    #     print(article)
+    # print("============================")
+    return render(request, template_name=template_name,context=context)

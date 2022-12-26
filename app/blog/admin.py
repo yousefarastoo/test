@@ -3,6 +3,8 @@ from .models import Articles,Category
 
 # Register your models here.
 
+# def make_published(modeladmin,request,queryset):
+#     row_updates = queryset.update()
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("title","slug","status","position")
@@ -14,7 +16,7 @@ class CategoryAdmin(admin.ModelAdmin):
 admin.site.register(Category,CategoryAdmin)
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ("title","slug","jpublished","status","category_to_str",)
+    list_display = ("title","slug","jpublished","status","category_to_str","author",)
     list_filter = ("published","status")
     search_fields = ("title","description")
     #  علامت منفی برای نزولی میباشد 
