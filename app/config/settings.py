@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # my own app: 
     'blog.apps.BlogConfig',
     'account.apps.AccountConfig',
+    # tird party app : 
+    "widget_tweaks",
     # "debug_toolbar",
 ]
 
